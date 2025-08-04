@@ -1,0 +1,29 @@
+1. On unseen data!
+
+
+
+
+
+
+
+
+2. 
+
+Datasets, codes and slides at
+
+https://www.superdatascience.com/machine-learning
+
+4. Intro
+
+in google collabs all the ML libraries and required modules are installed
+
+google drive link
+https://drive.google.com/drive/folders/1OFNnrHRZPZ3unWdErjLHod8Ibv2FfG1d
+
+he just arranged everything.
+all i have to do is resources
+and know how to use them.
+
+the notebooks are read only 
+
+we have to re code <3
