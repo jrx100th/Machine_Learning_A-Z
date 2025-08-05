@@ -1,0 +1,74 @@
+7. Machine Learning Workflow : Importing, modelling, evaluating your ML model 
+
+3 mean steps
+
+1. Data pre processing
+import the data
+clean the data 
+split into training & test sets 
+
+2. Modelling
+Build the model
+train the model
+make the predictions
+
+3. Evaluation 
+calculate performance metrics
+make a verdict
+
+
+
+
+
+
+
+
+
+
+
+
+
+8. Data preprocessing : importance of training test split in ML model evaluation 
+
+dataset into training and test set
+
+eg : predicting the sale prices
+mileage of car and its are age are given 
+
+bulk of 80% of data is the training set and 
+20% will be our testing set
+
+
+
+
+
+
+
+
+
+
+
+9. Feature Scaling in Machine Learning : Normalization vs Standardisation explained 
+
+feature scaling is applied to columns, not the data in columns
+multiple types
+
+1. Normalization
+
+applied to every single column
+and results in a new column with new values
+in between 0, 1
+check in web for the formula
+
+
+2. Standardisation
+
+all values in between -3 and 3
+
+
+eg 
+1 dataset of 2 columns
+birthdate and annual income 
+
+
+these feature scaling techniques needs to be applied so that we wont end up with biased or non comparable values in the dataset
