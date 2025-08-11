@@ -1,0 +1,432 @@
+10. step 1 : preparing your data for ML models
+
+
+
+
+11. Raw data to ML ready data
+
+importing libraries
+importing the dataset
+taking care of missing data
+encoding categorical data 
+    encoding the independent variable
+    encoding the dependent variable 
+splitting the dataset into training set and test set
+feature scaling
+
+
+
+
+
+
+
+
+
+
+
+
+12. Machine Learning Toolkit: Importing NumPy, Matplotlib, and Pandas Libraries
+
+numpy = arrays
+matplotlib = charts, visualization
+pandas for matrix of features and more 
+
+library contains classes 
+
+import numpy as np
+import matplotlib.pyplot as plt# getting the pyplot module from matplotlib
+import pandas as pd # for importing the dataset
+
+
+
+
+
+
+
+
+
+
+
+
+13. Importing Datasets Using Pandas read_csv()
+
+features are columns = independent variable
+dependent variable = to predict based on the independent variable
+dependent var in last column usually
+
+x for the matrix of features
+y = dependent variable vector
+
+
+
+
+
+
+
+
+
+
+coding challenge on iris.csv dataset 
+
+# Importing the necessary libraries
+import pandas as pd 
+import numpy as np 
+import matplotlib.pyplot as plt
+
+# Loading the Iris dataset
+dataset = pd.read_csv("iris.csv")
+
+# Creating the matrix of features (X) and the dependent variable vector (y)
+X = dataset.iloc[:,:-1].values
+y = dataset.iloc[:, -1].values
+# Printing the matrix of features and the dependent variable vector
+print(X)
+print(y)
+
+
+
+
+
+
+
+
+
+
+17. Taking care of missing data 
+
+1 ignore the observation by removing the row
+  when the dataset is large and the number of missing values is small
+
+replace the missing values with the mean value in the column
+
+for that scikit learn is required
+from sklearn.impute import SimpleImputer
+imputer = SimpleImputer(missing_values=np.nan, strategy='mean')
+replacing it with mean
+
+18. 
+putting that imputer object into action 
+
+if the who dataset doesnt have any categorical values then 
+we can just put the whole dataset to fit
+imputer.fit(dataset)
+
+pima indians diabetes dataset challenge 
+
+1. Import the necessary libraries: We start by importing the necessary libraries for this exercise. Pandas is a library providing high-performance, easy-to-use data structures and data analysis tools. NumPy is a library used for working with arrays. SimpleImputer is a class from the sklearn.impute module that provides basic strategies for imputing missing values.
+
+# Importing the necessary libraries
+import pandas as pd
+import numpy as np
+from sklearn.impute import SimpleImputer
+2. Load the dataset: The dataset is loaded into a pandas DataFrame using the read_csv function. This function is widely used in pandas to read a comma-separated values (csv) file into DataFrame.
+
+# Load the dataset
+df = pd.read_csv('pima-indians-diabetes.csv')
+3. Identify missing data: We identify missing data in the DataFrame using the isnull function followed by the sum function. This gives us the number of missing entries in each column. These missing entries are represented as NaN.
+
+# Identify missing data (assumes that missing data is represented as NaN)
+missing_data = df.isnull().sum()
+4. Print the number of missing entries in each column
+
+# Print the number of missing entries in each column
+print("Missing data: \n", missing_data)
+5. Configure an instance of the SimpleImputer class: We create an instance of the SimpleImputer class. This class is a part of the sklearn.impute module and provides basic strategies for imputing missing values. We configure it to replace missing values (represented as np.nan) with the mean value of the column.
+
+# Configure an instance of the SimpleImputer class
+imputer = SimpleImputer(missing_values=np.nan, strategy='mean')
+6. Fit the imputer on the DataFrame: We fit the imputer on the DataFrame using the fit method. This method calculates the imputation values (in this case, the mean of each column) that will be used to replace the missing data.
+
+# Fit the imputer on the DataFrame
+imputer.fit(df)
+7. Apply the transform to the DataFrame: We apply the transform to the DataFrame using the transform method. This method replaces missing data with the imputation values calculated by the fit method.
+
+# Apply the transform to the DataFrame
+df_imputed = imputer.transform(df)
+8. Print the updated matrix of features: Finally, we print out the updated matrix of features to verify that the missing data has been successfully replaced.
+
+print("Updated matrix of features: \n", df_imputed)
+
+
+
+
+
+
+
+
+
+
+19. One hot encoding 
+transforming categorical features for ML models
+categories = strings in dataset
+
+turining the country column into the distinct number of countiry columns
+and creating binary vector for each of the countries
+and making 3 new columns with 0 and 1
+
+for purchased it is binary outcome
+so it can be replaced with 0 and 1
+and it does not effect the model as that is the dependent variable 
+
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+
+
+20. putting into action (step2) - independent variables 
+
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+
+ct = ColumnTransformer(transformers=([('encoder',OneHotEncoder(),[0])]),remainder='passthrough') # 2 args = 1. what kind of transformation and on which indexes, 2. remainder(the columns that dosnt need to transformed)
+x = np.array(ct.fit_transform(X=x))
+print(x)
+
+ColumnTransformer requres 2 inputs
+1st input tuple requires 3 parameters
+1. encoder (for specifying the type of transformation)
+2. OneHotEncoder = the type of encoder
+3. target columns
+we wanna target 0th column 
+
+2nd input tuple 
+will have the remainder
+what to leave out of the transformation 
+passthrough means only the specified column(0) should be transformed and the rest needs to be passthrough the transformation without any effects 
+
+and the ColumnTransformer has an in built fit and transform and to make it a matrix we apply np.array()
+
+
+
+21. step 3 - dependent variables 
+
+purchased into 0 and 1
+
+from sklearn.preprocessing import LabelEncoder
+
+le = LabelEncoder() # no inputs requred 
+y = le.fit_transform(y) # y is already a single array not a matrix to be filtered
+print(y)
+
+
+
+
+22. titanic dataset challenge
+If your dataset is a pandas DataFrame, 
+ColumnTransformer expects column names or positive indices. 
+Passing negative indices can cause indexing errors because it tries to interpret them as column names or positions and may fail.
+
+during importing the dataset
+if we dont use 
+x = dataset[:,-1].values
+then 
+during the OneHotEncoder will give the sparse_true output
+so to negate that again we need to specify
+in transformers
+OneHotEncoder(sparse_output = false)
+
+or else just put values in x and y variables 
+
+so lets say there are 8 different values in the survived column
+so it will be from 0 to 7
+
+If a column has 8 unique values:
+LabelEncoder → will assign integers 0, 1, 2, 3, 4, 5, 6, 7 (single column of integers).
+OneHotEncoder → will create 8 separate binary columns, one for each unique value.
+
+with dataset.drop('Survived',axis=1)
+axis= it is compulsory
+
+
+
+
+
+
+
+22. splitting for training and testing data step-1
+
+feature scaling after the splitting
+reason : 
+having 2 different sets
+1. for training and 
+2. testing/evaluation
+
+feature scaling = all take values in the same scale 
+
+test-set : brand new set = for testing 
+during feature scaling the mean and standard deviation will be notes = so 
+so different mean and median for testing and training dataset is recomended
+
+FS before splitting will cause information leakage of the test set
+
+
+
+
+
+
+
+
+23. step-2 preparing the data for splitting
+
+4 variables
+matrix of features + independent variable = for training set
+matrix of features + dependent variable = for testing set
+
+4 sets
+x_train = matrix of features of the training set 
+x_test = matrix of features of the testing set 
+
+y_train = dependent variable of the training set 
+y_test = dependent variable of the testing set 
+
+the ML model will expect this format 
+for fit method and inference 
+
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x,y,train_size=0.8, test_size=0.2, random_state=1)
+if test_size is mentioned then the train_size is optional and vice versa 
+Different integer seeds (like 1 or 42) will produce different splits, but each time you use the same seed number, you'll get the same consistent split. This helps with debugging, comparison, and reproducibility in your experiments.'
+the x and y are the pre processed from the raw dataset
+like after handling the missing values and encoding.
+
+
+
+
+
+
+iris_dataset challenge 
+
+StandardScaler is applied to standardize the features to have a mean=0 and variance=1. The scaler is fitted on the training set and then used to transform both the training and test sets. This is to prevent information leak from the test set into the training set.
+
+# Apply StandardScaler to scale the feature variables
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+target columns like y_train and y_test should now be scaled 
+
+challenge solution
+
+# Import necessary libraries
+import pandas as pd 
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScalar
+
+# Load the Iris dataset
+dataset = pd.read_csv("iris.csv")
+
+# Separate features and target
+x = dataset.iloc[:,:-1].values
+y = dataset.iloc[:,-1].values
+# Split the dataset into an 80-20 training-test set
+
+x_train, x_test, y_train, y_test = train_test_split(x,y,test_size=0.2,random_state=1)
+# Apply feature scaling on the training and test sets
+sc = StandardScalar()
+x_train = sc.fit_transform(x_train)
+x_test = sc.transform(x_test)
+
+# Print the scaled training and test sets
+print(y_train)
+print(y_test)
+print(x_test)
+print(x_train)
+
+
+
+
+
+
+
+
+
+25. Step1 Feature scaling = allow all our features to be on the same scale 
+
+reason : all features need to be on the same scale for comparision 
+
+2 techniques
+1. standardization
+2. normalization
+
+normalization is recomended when you have a normal distribution among most of the features 
+standardization will work all the time
+but normalization is recommended for specific situations
+
+26. 
+feature scaling on both x_train and x_test
+scalar will be fitted for x_train
+
+no need to apply standard scaling to the dummy values like the result of the OneHotEncoder
+
+
+
+
+
+
+
+27. Implementing Feature Scaling 
+
+step 4 
+You cannot (and should not) use `fit_transform` on your test data (`x_test`) because:
+
+- **`fit_transform` does two things:**
+  1. It **learns** the parameters (mean and standard deviation) from the data you provide.
+  2. It **transforms** the data using those learned parameters.
+
+- When you do `sc.fit_transform(x_train[:, 3:])`, the scaler learns the mean and variance **from the training data only** and scales that data accordingly.
+
+- For the test data `x_test[:, 3:]`, you want to **transform it using the same parameters** learned from the training data to ensure consistency and avoid data leakage.  
+  That is why you call:
+  ```python
+  sc.transform(x_test[:, 3:])
+  ```
+  This uses the mean and variance from `x_train` scaling to transform `x_test`.
+
+***
+
+### Why not `fit_transform` on test data?
+
+If you call `fit_transform` on the test data, you would be:
+
+- Learning new scaling parameters (mean and variance) from the test set, which you should keep unseen and "untouched" to simulate real-world unseen data.
+- This would cause the scaled test data to have a different scale than the training data, leading to inconsistent model input and biased performance evaluation.
+
+***
+
+### Summary
+
+| Dataset       | Method         | Effect                                              |
+|---------------|----------------|-----------------------------------------------------|
+| Training data | `fit_transform`| Learns parameters and scales training data          |
+| Test data     | `transform`    | Uses *training* parameters to scale test data       |
+
+***
+
+### Source explanations
+
+- "fit_transform() is used on the training data so that we can scale the training data and also learn the scaling parameters of that data. Then transform() is used on the test data to apply the same parameters without learning new ones."[1][2][3]
+
+***
+
+If you want, I can provide example code demonstrating this clearly. Would you like that?
+
+[1] https://towardsdatascience.com/what-and-why-behind-fit-transform-vs-transform-in-scikit-learn-78f915cf96fe/
+[2] https://www.geeksforgeeks.org/python/what-is-the-difference-between-transform-and-fit_transform-in-sklearn-python/
+[3] https://stackoverflow.com/questions/23838056/what-is-the-difference-between-transform-and-fit-transform-in-sklearn
+[4] https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html
+[5] https://www.youtube.com/watch?v=rIKVoHp1HLM
+
+standard scalar
+the values lie in between -3 and 3
+
+fit = learns the parameters from the data 
+transform = applies the transformation to the data using the parameters learned by fit
+fit_transform = both in a single step 
+
+
+data preprocessing template
+contains
+1. importing the libraries
+2. importing the dataset and setting X and y using dataset.iloc[]
+3. splitting the dataset into x_test,x_train,y_test,y_train
+
+1. train the model and to evaluate the model
