@@ -1,0 +1,204 @@
+41. Simple Linear Regression : Equation and potato yield prediction 
+
+y = b0 + b1x
+y = dependent variable 
+b0 = y-intercept 
+b1 = slope coeffecient
+x = independent variable
+
+getting the yield based on the fertilizer that we use 
+
+
+
+
+
+
+
+
+
+
+
+42. Ordinary least squares 
+which slope line is the best one 
+through the data lines 
+
+how to define the best one
+so for that OLS
+take the data points 
+and project them vertically 
+onto our linear regression line 
+
+so for each pair of values we have 
+y and 
+y cap 
+y = actual amount of potatoes yielded at that condition
+y_cap = what this Linear regression is predicting 
+
+so basically actual value and the predicted value 
+
+and best line is through the least difference between these two variables 
+
+difference is called residual 
+
+the best equation where 
+sum of residuals is minimized is the best equation 
+= Ordinary least squares
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+43. Simple Linear Regression: Key concepts and implementation
+
+goal is to build a linear regression model that can understand the relation between yearsofexperience and salary
+
+
+
+
+
+
+
+
+
+
+
+44. Daata Preprocessing for linear regression :
+import and split data in python 
+
+just repeat the same steps from previous sections of data preprocessing 
+nothing new 
+
+
+
+
+
+
+
+
+
+
+
+45. Building a Simple Linear regression model 
+
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+
+
+
+
+
+
+
+
+
+
+
+46. Training
+fit method to train our model
+expects our training data for dep and indep variable
+regressor.fit(x_train, y_train)
+
+
+
+
+
+
+
+47. predict method for linear regression
+regressor.predict(x_Test)
+outputs a vector
+so save them in a variable 
+
+y_pred = regressor.predict(x_test)
+so y_pred contains the predicted values
+and y_test contains the original values 
+
+
+
+
+
+
+
+
+
+48. Plotting real vs predicted salaries 
+
+in 2D plot 
+
+# red points real salaries
+# blue poiint predicted salaries
+# x = years of experience
+# y = salaries 
+
+1st training set results 
+2nd test set results 
+
+
+plt.scatter(x_train,y_train,color = 'red')
+
+# the regression line = the line of prediction(closer to real salaries)
+plt.plot(x_train, regressor.predict(x_train),color='blue')
+plot to get the curve of the function 
+
+y_train contains the actual observed salaries (the real data points), which are scattered and may not form a perfect straight line.
+The purpose of the regression line is to show the model’s predicted values—the best linear relationship the model has learned from the data.
+
+plt.scatter will give us the points 
+and 
+plt.plot will give us a line 
+
+
+
+
+
+
+
+
+
+
+
+
+49. Evaluating linear regression model performance 
+
+plt.scatter(x_Test, y_test, color = 'red')
+plt.plot(x_train, regressor.predict(x_train), color = 'blue')
+plt.xlabel("Years of Experience")
+plt.ylabel("Salary")
+plt.title("Salary vs exp(test set)")
+plt.show()
+
+now here in this the line blue line is the original one to compare how near or close the testing predictions are true for the model
+
+reason for good regression line is due to 
+linear relationship 
+between features and dependent variables in the dataset 
+
+non linear relationships require non linear models 
+like polynomial regression or SVR 
+
+
+Quiz : 
+Question 3:
+What is the constant in simple linear regression?
+Ans
+it is where the line crosses the vertical axes
+
+
+
+
+
+
+
+
+
+Unexpected that half the course contains ML for R 
