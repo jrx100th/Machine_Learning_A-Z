@@ -1,0 +1,468 @@
+57. Startup success prediction: Regression model for VC fund decision making.
+
+getting the best startup to invest based on the profit based on different parameters like marketing, r and d
+profit = dependent variable
+other are independent variable 
+
+
+
+
+
+
+58. Multiple Linear Regression : independent variables and prediction models
+eg : 
+getting the potato yield based on 
+the kg of pesticide, temperature, precipitation in the season 
+
+using ANN and multiple linear regression to determine the potato yield
+
+
+
+
+
+
+
+
+59. Understanding Linear Regression Assumptions: Linearity, Homoscendasticity and more
+
+there are some cases where we cant use linear regression, where the data is not in a linear relationship and it is not fit for it.
+like anscombe's quartet 
+
+5 assumptions in total
+1. Linearity
+Linear relationship between Y and each X
+if yes = LR
+
+2. Homoscendasticity
+Equal variance
+variance depends on the independent variable 
+
+3. Multivariate Normality
+(Normality of error distribution)
+
+4. Independence
+of observtions includes 'no automation'
+no auto correlation
+there are patterns in the data 
+and sometimes rows are not independent
+eg : stock market 
+
+5. Lack of multicollinearity
+independent variables 
+or 
+predictors are not correlated with each other 
+
+6. Outlier check
+outlier will significantly effect the linear regression line 
+it depends on the situation whether we want to remove the outliers needs to be removed or do we need to consider.
+
+
+
+
+
+
+
+
+60. How to Handle Categorical Variables in Linear Regression Models
+
+Dummy Variables 
+
+back to the dataset 
+now finding the correlation between the profit and expenses in different Variables
+profit = dependent variable
+
+y = b0 + b1*x1 + b2*x2 + b3*x3 + state column(not a number, so it is a categorical variable)
+
+now for categorical variables = we use dummy variables 
+
+so for each state we will have a new column and then add 0 and 1 accordingly
+so the new columns are called dummy variables
+
+so now it is 
+y = b0 + b1*x1 + b2*x2 + b3*x3 + b4*D1(D1 is the first dummy variable column)
+right now we have only 2 dummy columns 
+new york and california 
+and we will only include 1(replacing)
+and if that one is 0 then it mean the other is 1
+
+these dummy columns work as switches
+as it is either in new york or california 
+
+
+
+
+
+
+
+
+
+
+61. Dummy Variable Trap
+
+we can never include both dummy variables at the same time 
+
+y = b0 + b1*x1 + b2*x2 + b3*x3 + b4*D1+b5*D2
+here we are duplicating a variables as D1 and D2 have the same values(Binary)
+and D2 = 1 - D1
+the phenomenon where one or more variables independent variables predict another variable is 
+called multicollinearity
+and the model cannot distinguish between the effects of D1 and D2 and wont work properly 
+and this is called dummy variable trap 
+
+always omit one dummy variable
+irrespective to the number
+eg : there are 10 dummy variables : omit 1 and use 9
+if 100 use only 99
+
+if there are two sets of dummy variables then apply the same rules to both of them
+
+
+
+
+
+
+
+
+
+62. Understanding P-values and statistical significance in hypothesis testing 
+
+finding if it is significant by checking the statistical significance 
+eg : coin flip
+H0 : fair coin        = null hypothesis
+H1 : not a fair coin  = alternate hypothesis 
+
+with every flip
+0.5
+0.25
+0.12
+0.06
+0.03
+0.01
+6 tails in a row
+here the p-value the probability of happening given that we are in H0 
+is dropping
+
+so it is H1 positive it is rigged
+and the we are betting on H0
+
+so statistical significance at less than 6% = alpha = 0.05 
+it is higly unlikely to see this(6 times in a row) in random
+and then reject the null hypothesis(fair coin) 
+and accept the alternate hypothesis
+
+alpha = confidence level
+most of the time alpha = 0.05 = 95%
+but in medical trails
+confirmation/ not confirmation of something 
+they use 99%
+aplha = 0.01
+
+in math we just draw a line to have confidence to reject the null hypothesis and accept alternate hypothesis
+
+
+
+
+
+
+
+
+
+
+
+63. Backward elimination : Building Robus multiple linear regression models
+
+building a model
+(step by step)
+
+previously
+1 dependent variable and 1 independent variable = linear regression 
+
+now 
+multiple independent variables and 1 dependent variable 
+now we have to decide which one to keep and which one to throw off 
+1. 
+garbage in garbage out
+if we throw a lot of unnecessary variables then we will get a lot of bad things(not required)
+TLDR : becomes a garbage model 
+
+2. 
+explaining and understanding the important variable and determining them
+based on how they are going to effect the dependent variable 
+
+now there are 5 methods to build a model 
+
+1. All-in 
+2. Backward elimination
+3. Forward selection
+4. Bidirectional elimination
+5. Score Comparision
+
+stepwise regression = 2,3,4
+
+significance level = alpha
+confidence = complementary of alpha
+
+1. All in -cases 
+throwing all the variables 
+depending on the situation 
+or prior knowledge
+or instructed to do so 
+or preparing for backward elimination
+
+2. Backward elimination 
+step 1 : select significance level to stay in the model SL = 0.05
+step 2 : fit the full model with all possible predictors(all-in)
+step 3 : consider the predictor with the highest P-value. if P > SL, go to step 4 otherwise got to FIN 
+step 4 : remove the predictor 
+step 5 : fit model without this variable
+now again go back to step 3
+and keep doing that untill (highest)P < SL
+FIN = model is ready
+
+3. Forward Selection
+complex than just reversing 
+step 1 : select the significance level to enter the model (eg : SL : 0.05)
+step 2 : fit all simple regression models y~xn, Select the one with the lowest P-value
+step 3 : keep this variable and fit all possible models with one extra predictor addrd to the one(s) you already have 
+step 4 : Consider the predictor with the lowest P-value. If P < SL, go to STEP 3, otherwise go to FIN.
+         STOP when we have more P than SL, untill then we will just increase the model 
+FIN = keep the previous model
+
+4. Bidirectional elimination
+combines the above 2
+step 1 : Select a significance level to enter and to stay in the model.
+        eg : SLENTER = 0.05, SLSTAY = 0.05
+step 2 : Perform the next step of forward selection(new variables must have : P < SLENTER to enter)
+step 3 : Perform ALL steps of backwrd Elimiation (old variables must have P < SLSTAY to )
+         then go back to step 2 (grow the model by another variable)
+         very iterative process (will continue untill you cant add or remove any variables)
+         then FIN = your model is ready 
+
+5. All possible models : resource constraint 
+step 1 : Select a criterion of goodness of fit(akalike criterion)
+step 2 : construct all possible regression models (2**n)-1 total combinations
+step 3 : select the one with the best criterion 
+FIN : your model is ready
+eg :
+10 columns = 1023 models 
+and it is a resource consuming 
+
+in tutorials we use backward elimiation and it is fastest one among all of them.
+
+
+
+
+
+
+
+
+
+
+64. step 1a
+
+scenario :
+a vc fund hired me to train a multiple machine learning model to understand the correaltion between the variables and the profit 
+of 50 startups
+goal for vc fund to which startup to invest in based on the information
+first steps are 
+1. data pre processing
+    import the libraries 
+    import the dataset
+    split the dataset between training and testing
+take a good look at the columns like
+mising data, numerical and categorical values 
+categorical values = state column = new york/california/florida
+apply onehotencoding for state variable 
+
+on using the template just change the name of the dataset 
+
+
+
+
+
+
+
+
+
+
+
+65. step 1b
+66. 2a 
+nothing new or interesting 
+just some copy paste and change the  dataset name and 
+in column transformer just change the 3rd parameter from [0] to [3] in transformer parameters 
+and just run all 
+
+and jsut remember 
+whenever we just
+fit_transform
+use 
+np.array()
+and similarly just 
+similay 
+sparse_output in onehotencoder along 
+with the .values in making of X and Y
+
+
+
+
+
+
+
+
+
+67. step 2b
+now the states are encoded into Binary
+and comes to the first place rather then its default column order 
+
+now 
+we need not to use feature scaling 
+because co-effecient that will be multiplied to each feature 
+and some features will have higer value than other and the co-effecient will try to compensate for that
+so no need of feature scaling 
+
+we need not to actually check all the 5 assumptions 
+even if it does not agree with the 5 assumptions still we can apply 
+and get poor results 
+and therefore a lower accuracy than the other one.
+it is just a waste of time 
+and after applying we will get it 
+
+
+
+
+
+
+
+
+
+
+
+68. Step 3a
+effecient model building 
+
+
+If multicollinearity is present in a dataset, the primary issues are unstable coefficient estimates and increased standard errors, 
+making it difficult to interpret the individual impact of correlated predictor variables on the outcome. This leads to wider confidence intervals and potentially insignificant predictors, 
+reducing the reliability and interpretability of the regression model, though the overall predictive power of the model may not be affected.
+
+
+1. Do we have to do anything to avoid the dummy variable trap
+ans : no 
+
+because the class that we are going to import can do several actions
+and can avoid the dummy variable trap 
+
+the one of the dummy variable columns will be outcasted 
+
+2. Do we have to work with 5 of those technique to get the best predictors for the model(backward elimiation)
+ans : no 
+same reason 
+multiple linear regression will have built in methods to get and use the best features(most statistically significant)
+for how to predict the varaible to get the highest accuracy 
+the class sklearn will take care of it 
+
+now ML models = need to be effecient, so sklearn will take care of everything.
+sklearn.model_selection
+comparing the accuracy of other models 
+more of the model_selection in part 10
+previously = simple linear regression = 1 feature in our dataset 
+now = multiple LR = several features 
+now we are using the same class linearmodel
+
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train,y_train)
+
+yep the same code with no parameters 
+
+
+
+
+
+
+
+
+
+
+
+
+69. 3b
+
+so when using the linear_model class
+no need to worrying about 
+dummy variable trap 
+selecting the best features like statistically significant 
+
+now predicting the test results 
+now we have multiple features so we cant plot a graph 
+so since we have 4 features we need 5D graph and till now human cerebral cortex is not designed/evolved to process it.
+
+so now instead of visualizing we will display 
+2 vectors 
+1 = vector of real profit in the test set(20% of all the rows) = 10 samples 
+2 = 10 predicted profits of the same test set 
+so we can compare 
+if pred is close to real 
+and
+later some evaluation techniques 
+to measure better performance of the regression model on some relevant metrics 
+
+
+
+
+
+
+
+
+
+
+
+70. 4a comparing real vs predicted profits in linear regression
+
+y_pred = regressor.predict(X_test)
+np.set_printoptions(precision=2)  # will display only 2 decimal places after coma 
+
+# now displaying both of vectors side by side using concatenate
+# concatenate can do both vertically or horizontally
+we are going to do it vertically 
+so we have to reshape when we concatenate 
+
+
+
+
+
+
+
+
+
+
+
+71 . 4b
+
+print(np.concatenate((y_pred.reshape(len(y_pred), 1), y_test.reshape(len(y_test), 1)), axis=1))
+concatenate will take two parameters 
+and one is the whole an array of what we need to concatenate (where all the arrays in the first input array needs to be the same size(so are y_pred and y_test))
+and other is axis
+axis = 1 = vertical
+axis = 2 = horizontal axis 
+
+so basically it is the same code
+only the presentation is changed 
+instead of visualization(plt) we are just displaying numbers
+
+we can apply any model to any dataset, but the performance wont be the same like drop in accuracy
+and sklearn has all built it stuff like getting the best features and handling 
+except for preprocessing.
+
+
+and for extra prediction like a new company 
+just add them in a new [[]]
+as a 2d array 
+
+print(regressor.predict([[1, 0, 0, 160000, 130000, 300000]]))
+
+getting the final linear regression equation with the values of the coeffecients
+
+print(regressor.coef_)
+print(regressor.intercept_)
