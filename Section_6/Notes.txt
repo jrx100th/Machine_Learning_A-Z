@@ -1,0 +1,107 @@
+82. Understanding PLR
+
+Sometimes polynomial linear regression works well on linear regression datasets
+and can also used to track pandemic spread
+
+and still it is called linear 
+
+y = b0+b1x1+b2x1^2+bnx1^n
+
+it still be expressed as linear expression
+it is a type of multiple linear regression
+
+PLR : relationship bw x and y is non linear 
+and still it is called about linear due to coeffecients
+
+non linear regression uses 
+division in the co effecients
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+83. 1a
+working on dataset that linear regression wont work
+
+predicting the previous salary of the candidate from a candidate
+
+
+
+84. 1b 
+skipping the division to training and testing set
+
+PLR will be much more adapted to the dataset
+
+so we will train this on both LR and PLR 
+
+till now to make a single prediction from the given data 
+
+now changing the 
+default X because already everything is encoded categorically, and we have to remove the 
+first column position from the model 
+X = dataset.iloc[:,1:-1].values
+
+
+now training the whole dataset on the model
+
+
+
+
+
+85. 2a
+
+in PLR :
+instead of different features
+we have x1 and its square and different powers for the 
+and PLR has powered matrix
+
+so for handling the powered features we have
+this class called polynomial features class
+
+from sklearn.preprocessing import PolynomialFeatures
+poly_reg = PolynomialFeatures(degree=2)
+so in this line
+degree is a hyperparameter and needs to be tuned for better results 
+
+from simple features to b2x1^2 level
+
+
+
+
+
+
+
+
+
+86. 2b
+
+from sklearn.preprocessing import PolynomialFeatures
+poly_reg = PolynomialFeatures(degree=2)
+X_poly = poly_reg.fit_transform(X=X)
+
+so here the b2x1^2 is done now we have to add it with the linear regression part 
+
+from sklearn.preprocessing import PolynomialFeatures
+poly_reg = PolynomialFeatures(degree=2)
+X_poly = poly_reg.fit_transform(X=X)
+lin_reg_2 = LinearRegression()
+lin_reg_2.fit(X=X_poly,y=y)
+
+
+with higher powers (with higher degree(n)) = we will get higher results 
+so the accuracy of the model needs to be tuned using the degree
+
+
+Yes, if the degree is set to 1 in polynomial linear regression, it will behave exactly like a regular linear regression, modeling a straight line and not adding any curve or higher-order terms.
