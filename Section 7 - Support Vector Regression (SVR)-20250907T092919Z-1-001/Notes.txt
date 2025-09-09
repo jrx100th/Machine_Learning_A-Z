@@ -1,0 +1,239 @@
+102. How Does Support Vector Regression (SVR) Differ from Linear Regression?
+
+
+SVR Intuition
+
+
+
+
+
+
+
+
+
+103. RBF Kernel SVR: From Linear to Non-Linear Support Vector Regression
+
+definetily not a stright line 
+and its 3D and more calculations and it is complex
+
+road to Kernel SVR
+
+Section on SVM 
+1. SVM Intuition
+
+Selection on Kernel SVM:
+2. Kernel SVM Intuition
+3. Mapping to a higher dimension
+4. the Kernel trick
+5. types of Kernel functions 
+6. Non-linear Kernel SVR 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+104. Step 1a - SVR Model Training: Feature Scaling and Dataset Preparation in Python
+
+feature scaling (transformation)
+and inverse scaling = before transformation
+
+
+till now in LR, MLR, PLR no need of feature scaling
+but now SVR needs feature scaling 
+
+here there is no splitting of training and testing 
+and we want the whole model to train on the the dataset
+
+and then we are going to predict SVR and PLR 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+105. Step 1b - SVR in Python: Importing Libraries and Dataset for Machine Learning
+
+in feature scaling we need to modify it
+and 
+
+nothing more than copy and pasting the code from template 
+
+
+
+
+
+
+
+
+
+
+
+
+
+106. Step 2a - Mastering Feature Scaling for Support Vector Regression in Python
+
+till now
+feature scaling = standard scaling
+test set and train set seperately
+
+and we didnt apply feature scaling to dependent variable y and
+applied to only independent variable X
+because 
+it is not required(since it is binary)
+
+now in this situation
+
+the dependent variable has numerical value 
+and needs to be applied
+because the values should not be neglected 
+
+for SVR without feature scaling it will not work
+
+so now apply the feature scaling after the split 
+
+to get the final results for the prediction we need to use inverse scaling 
+
+so when a column has binary values then that column need not to be feature scaled
+the column can either be a dependent variable or independent variable
+
+
+
+
+
+
+
+
+
+
+
+
+107. Step 2b: Reshaping Data for SVR - Preparing Y Vector for Feature Scaling (Python
+
+reshaping y to be an array
+in a vertical method 
+because feature scaling will expect a unique format
+just like 
+fit_transform expects a 2D array,
+reshape expects a 2D array with salaries displayed vertically 
+
+y = y.reshape(len(y),1)
+print(y)
+
+y.reshape(number of rows, number of columns)
+
+
+
+
+
+
+
+
+108. Step 2c: SVR Data Prep - Scaling X & Y Independently with StandardScaler
+
+even fit_transform expects a 2DArray 
+
+and now we have to fit both x and y
+
+so for different varaible use different StandardScaler objects 
+
+StandardScaler transforms your values in bw -3 and +3
+
+
+
+
+
+
+
+
+
+
+109. Step 3: SVM Regression: Creating & Training SVR Model with RBF Kernel in Python
+
+from sklearn.svm import SVR
+# needs parameters as RBF Kernel( linear or non linear)
+regressor = SVR(kernel='rbf')
+regressor.fit(X=X,y=y)
+
+SO now when we predict 
+then the prediction will be in the scaled value of x and it needs to be inverse scaled to get the correct values 
+
+
+
+
+
+
+
+
+
+
+
+
+110. Step 4 - SVR Model Prediction: Handling Scaled Data and Inverse Transformation
+
+even the regressor.predict will take the scaled value as the input 
+since it is trained on the scaled values 
+
+so in the predict method
+we are literally going to transform a value 
+like this 
+
+sc_y.inverse_transform(regressor.predict(sc_X.transform([[6.5]])).reshape(-1,1))
+
+What reshape(-1,1) Does
+-1: Tells NumPy to automatically determine the appropriate number of rows based on the total number of data points.
+1: Sets the number of columns to one, making the reshape output a column vector.
+Ensures the total number of elements does not change; the shape changes for compatibility with other functions expecting 2D arrays.
+
+sc_y.inverse_transform(regressor.predict(sc_X.transform([[6.5]])).reshape(-1,1))
+
+transform applies a previously learned feature transformation to new data, ensuring the preprocessing is identical for all inputs fed to your model
+
+first transform 6.5 from sc_X fitting and it takes only 2D array    sc_X.transform([[6.5]])
+use the SVR regressor to predict the transformed value              regressor.predict()
+now inverse_transform for sc_y fit of the transformed prediction    sc_y.inverse_transform()
+sc_y.inverse_transform(regressor.predict(sc_X.transform([[6.5]])).reshape(-1,1))
+
+
+
+
+
+
+
+
+
+
+
+
+111. Step 5a - How to Plot Support Vector Regression (SVR) Models: Step-by-Step Guide
+
+since we already applied inverse_transform on X in the first parameter 
+in the prediction for the second parameter no need of transforming it with X 
+so simply 
+plt.scatter(sc_X.inverse_transform(X), sc_y.inverse_transform(y), color='red')
+plt.plot(sc_X.inverse_transform(X), sc_y.inverse_transform(regressor.predict(X).reshape(-1,1)), color='blue' )
+
+
+
+
+
+
+
+112. Just change some stuff from previous notebook
