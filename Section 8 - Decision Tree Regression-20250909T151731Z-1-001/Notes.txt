@@ -1,0 +1,57 @@
+116. Step 1a - Decision Tree Regression: Building a Model without Feature Scaling
+
+no need of feature scaling here
+
+same dataset from previous 
+exercise 
+
+training DS tree to get the correlation 
+
+DTree is not adapted to simplete datasets like this 
+
+but it will still work on this or even 100's of features 
+for DS TREE regression no need of feature scaling 
+
+
+
+
+
+
+
+
+
+
+
+117. 1b
+
+random forest and dt3 dont need feature scaling because
+the splits are being resulted due to the values
+ 
+
+
+
+
+
+
+
+
+
+
+118. Step 2 - Implementing DecisionTreeRegressor: A Step-by-Step Guide in Python
+
+simple 
+
+
+119. Step 3 - Implementing Decision Tree Regression in Python: Making Predictions
+
+same 
+
+
+
+
+
+
+120. 
+
+DSTREE does not work well on 2D data like 1 indep var and 1 dep var 
+it is well adapted to higher dimensional datasets 
