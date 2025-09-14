@@ -1,0 +1,10 @@
+126. Step 1 - Building a Random Forest Regression Model with Python and Scikit-Learn
+
+since randomforest is an ensemble method we get randomforest from 
+
+sklearn.ensemble
+and we  have new parameter called 
+n_estimators = 10
+i think it resembles the number of trees in the 
+yeah the number of trees in the forest 
+n_estimators denotes the number of trees in the forest of this RFregression object (regression)
